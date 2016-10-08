@@ -202,8 +202,8 @@ public abstract class Critter {
 		}
 		System.out.print("+");
 		System.out.println();
+		
 		// printing each row of world grid
-
 		for (int i = 0; i < Params.world_height; i++) {
 			System.out.print("|");
 			for (int j = 0; j < population.size(); j++) {

@@ -87,9 +87,11 @@ public class Main {
 				Critter.displayWorld();				
 			}
 			if(cmd.substring(0,4).equals("step")){
-				int cnt = Integer.parseInt(cmd.substring(4).trim());
+				int cnt = 0;
+				if(cmd.length() > 4)
+					cnt = Integer.parseInt(cmd.substring(4).trim());
 				while(cnt > 0){
-					Critter.worldTimeStep();
+					//Critter.worldTimeStep();
 					cnt--;
 				}
 			}
