@@ -1,3 +1,14 @@
+/* CRITTERS <MyClass.java>
+ * EE422C Project 4 submission by October 18, 2016
+ * <Devisriram Akhil Mujje>
+ * <16470>
+ * <Sriram Ravula>
+ * <Student2 EID>
+ * <Student2 5-digit Unique No.>
+ * Slip days used: <0>
+ * Fall 2016
+ */
+
 package assignment4;
 
 /*
@@ -6,8 +17,8 @@ package assignment4;
  */
 
 public class Params {
-	public final static int world_width = 160;
-	public final static int world_height = 80;
+	public final static int world_width = 5;
+	public final static int world_height = 5;
 	public final static int walk_energy_cost = 2;
 	public final static int run_energy_cost = 5;
 	public final static int rest_energy_cost = 0;
