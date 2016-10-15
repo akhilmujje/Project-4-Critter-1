@@ -1,11 +1,11 @@
-/* CRITTERS <MyClass.java>
- * EE422C Project 4 submission by October 18, 2016
- * <Devisriram Akhil Mujje>
- * <16470>
- * <Sriram Ravula>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
+/* CRITTERS Params.java
+ * EE422C Project 4 submission by 
+ * Devisriram Akhil Mujje
+ * 16470
+ * Sriram Ravula
+ * sr39533
+ * 16475
+ * Slip days used: 0
  * Fall 2016
  */
 
