@@ -23,6 +23,9 @@ public abstract class Critter {
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
+	// added fields
+	private static int[][] position = new int[Params.world_height][Params.world_width];
+
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -57,10 +60,234 @@ public abstract class Critter {
 	private int y_coord;
 
 	protected final void walk(int direction) {
+		switch (direction) {
+
+		case 0: {
+			x_coord += 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+
+			break;
+		}
+		case 1: {
+			x_coord += 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord -= 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 2: {
+			y_coord -= 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 3: {
+			x_coord -= 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord -= 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 4: {
+			x_coord -= 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			break;
+		}
+		case 5: {
+			x_coord -= 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord += 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 6: {
+			y_coord += 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 7: {
+			x_coord += 1;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord += 1;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		}
+		this.energy -= Params.walk_energy_cost;
 	}
 
 	protected final void run(int direction) {
+		switch (direction) {
 
+		case 0: {
+			x_coord += 2;
+
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+
+			break;
+		}
+		case 1: {
+			x_coord += 2;
+
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord -= 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 2: {
+			y_coord -= 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;			
+			
+			break;
+		}
+		case 3: {
+			x_coord -= 2;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord -= 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			
+			break;
+		}
+		case 4: {
+			x_coord -= 2;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			break;
+		}
+		case 5: {
+			x_coord -= 2;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord += 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 6: {
+			y_coord += 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		case 7: {
+			x_coord += 2;
+			
+			if(x_coord < 0)
+				x_coord += Params.world_width;
+			else
+				x_coord = x_coord % Params.world_width;
+			
+			y_coord += 2;
+			
+			if(y_coord < 0)
+				y_coord += Params.world_height;
+			else
+				y_coord = y_coord % Params.world_height;
+			
+			break;
+		}
+		}
+		this.energy -= Params.run_energy_cost;
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
@@ -82,11 +309,31 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		/*if (!critter_class_name.equals("Craig") && !critter_class_name.equals("Algae"))
-			throw InvalidCritterException;
-		
-		population.add(new critter_class_name());
-		*/
+		try {
+			Class cl = Class.forName(critter_class_name);
+
+			switch (critter_class_name) {
+
+			case "Craig": {
+				Critter c = (Craig) cl.newInstance();
+				c.energy = Params.start_energy;
+				population.add(c);
+				break;
+			}
+			case "Algae":
+				Critter a = (Algae) cl.newInstance();
+				population.add(a);
+				break;
+			}
+
+		} catch (ClassNotFoundException c) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch (InstantiationException i) {
+			throw new InvalidCritterException(critter_class_name);
+		} catch (IllegalAccessException il) {
+			throw new InvalidCritterException(critter_class_name);
+		}
+
 	}
 
 	/**
@@ -194,7 +441,7 @@ public abstract class Critter {
 	}
 
 	public static void displayWorld() {
-		
+
 		// printing top border
 		System.out.print("+");
 		for (int i = 0; i < Params.world_width; i++) {
@@ -202,7 +449,7 @@ public abstract class Critter {
 		}
 		System.out.print("+");
 		System.out.println();
-		
+
 		// printing each row of world grid
 		for (int i = 0; i < Params.world_height; i++) {
 			System.out.print("|");
@@ -211,7 +458,7 @@ public abstract class Critter {
 			}
 			System.out.print("|");
 			System.out.println();
-			
+
 		}
 		// printing bottom border
 		System.out.print("+");
@@ -219,7 +466,6 @@ public abstract class Critter {
 			System.out.print("-");
 		}
 		System.out.println("+");
-	
-		
+
 	}
 }
