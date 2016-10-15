@@ -312,25 +312,20 @@ public abstract class Critter {
 		try {
 			Class<?> cl = Class.forName(myPackage + "." + critter_class_name); //create a class object with value equal to the given critter class
 
-			switch (critter_class_name) {
-
-			case "Craig": {
-				Critter c = (Craig) cl.newInstance();
-				c.energy = Params.start_energy;
-				population.add(c);
-				break;
-			}
-			case "Algae":
-				Critter a = (Algae) cl.newInstance();
-				population.add(a);
-				break;
-			}
-
-		} catch (ClassNotFoundException c) {
+			Critter c = (Critter) cl.newInstance();
+			c.energy = Params.start_energy; 
+			c.x_coord = getRandomInt(Params.world_width); //set the x and y coordinates to be random
+			c.y_coord = getRandomInt(Params.world_height);
+			population.add(c);
+		} 
+		
+		catch (ClassNotFoundException c) { //catch any exceptions that may be thrown and propagate them as InvalidCritterException
 			throw new InvalidCritterException(critter_class_name);
-		} catch (InstantiationException i) {
+		} 
+		catch (InstantiationException i) {
 			throw new InvalidCritterException(critter_class_name);
-		} catch (IllegalAccessException il) {
+		} 
+		catch (IllegalAccessException il) {
 			throw new InvalidCritterException(critter_class_name);
 		}
 
