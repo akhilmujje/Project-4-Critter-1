@@ -454,7 +454,10 @@ public abstract class Critter {
 		for (int i = 0; i < Params.world_height; i++) {
 			System.out.print("|");
 			for(int j = 0;j < Params.world_width;j++){
-				System.out.println(position[i][j]);
+				if(position[i][j] != null)
+					System.out.print(position[i][j]);
+				else
+					System.out.print(" ");
 			}
 			
 			//for (int j = 0; j < population.size(); j++) {
