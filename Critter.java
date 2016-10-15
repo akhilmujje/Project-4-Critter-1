@@ -62,114 +62,114 @@ public abstract class Critter {
 	protected final void walk(int direction) {
 		switch (direction) {
 
-		case 0: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-
-			break;
-		}
-		case 1: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 2: {
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 3: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 4: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			break;
-		}
-		case 5: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 6: {
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 7: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
+			case 0: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+	
+				break;
+			}
+			case 1: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 2: {
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 3: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 4: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				break;
+			}
+			case 5: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 6: {
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 7: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
@@ -177,115 +177,115 @@ public abstract class Critter {
 	protected final void run(int direction) {
 		switch (direction) {
 
-		case 0: {
-			x_coord += 2;
-
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-
-			break;
-		}
-		case 1: {
-			x_coord += 2;
-
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 2: {
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;			
-			
-			break;
-		}
-		case 3: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			
-			break;
-		}
-		case 4: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			break;
-		}
-		case 5: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 6: {
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 7: {
-			x_coord += 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
+			case 0: {
+				x_coord += 2;
+	
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+	
+				break;
+			}
+			case 1: {
+				x_coord += 2;
+	
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 2: {
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;			
+				
+				break;
+			}
+			case 3: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				
+				break;
+			}
+			case 4: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				break;
+			}
+			case 5: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 6: {
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 7: {
+				x_coord += 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
 		}
 		this.energy -= Params.run_energy_cost;
 	}
@@ -310,7 +310,7 @@ public abstract class Critter {
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
-			Class cl = Class.forName(critter_class_name);
+			Class<?> cl = Class.forName(myPackage + "." + critter_class_name); //create a class object with value equal to the given critter class
 
 			switch (critter_class_name) {
 
@@ -346,6 +346,19 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		
+		try{
+			Class<?> critter = Class.forName(myPackage + "." + critter_class_name); //create class object with given critter class
+			
+			int size = population.size();
+			for(int i = 0; i < size; i++){
+				if(critter.isInstance(population.get(i))) //check if the current critter is an instance of the specified critter 
+						result.add(population.get(i));
+			}
+		}
+		catch (ClassNotFoundException c) { //if the string input is not a valid critter type, then throw an exception
+			throw new InvalidCritterException(critter_class_name);
+		}
 
 		return result;
 	}
@@ -435,6 +448,7 @@ public abstract class Critter {
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		population.clear();
 	}
 
 	public static void worldTimeStep() {
