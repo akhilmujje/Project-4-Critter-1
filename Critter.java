@@ -24,7 +24,7 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
 	// added fields
-	private static int[][] position = new int[Params.world_height][Params.world_width];
+	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
 
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
@@ -453,9 +453,13 @@ public abstract class Critter {
 		// printing each row of world grid
 		for (int i = 0; i < Params.world_height; i++) {
 			System.out.print("|");
-			for (int j = 0; j < population.size(); j++) {
-				System.out.print(population.get(j).toString());
+			for(int j = 0;j < Params.world_width;j++){
+				System.out.println(position[i][j]);
 			}
+			
+			//for (int j = 0; j < population.size(); j++) {
+			//	System.out.print(population.get(j).toString());
+			//}
 			System.out.print("|");
 			System.out.println();
 
