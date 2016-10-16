@@ -25,7 +25,7 @@ public abstract class Critter {
 
 	// added fields
 	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
-
+	private boolean hasMoved = false;
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -172,6 +172,7 @@ public abstract class Critter {
 			}
 		}
 		this.energy -= Params.walk_energy_cost;
+		hasMoved = true;
 	}
 
 	protected final void run(int direction) {
@@ -288,9 +289,20 @@ public abstract class Critter {
 			}
 		}
 		this.energy -= Params.run_energy_cost;
+		hasMoved = true;
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
+	       if(energy < Params.min_reproduce_energy) //parent requires min reproduce energy to reproduce
+	            return;
+	        offspring.energy = energy / 2; //child receives 1/2 of parent's energy
+	        energy =  ((int)(0.5 * energy + 0.5)); //reduce parent energy by 1/2 (round up)
+	       
+	        //place child one position directly below parent
+	        offspring.x_coord = this.x_coord;
+	        int child_loc = this.y_coord + 1;
+	        child_loc %= Params.world_height;
+	        offspring.y_coord = child_loc;
 	}
 
 	public abstract void doTimeStep();
@@ -455,6 +467,43 @@ public abstract class Critter {
 	}
 	
 	private static void doEncounters(){
+		
+		 // Encounters between critters -STAGE 2 (in progress--INCOMPLETE)
+	            
+        int move = 1;
+        for (int i = 0; i < population.size() - 1; i++) { // traverse through
+                                                            // population,
+                                                            // checking if two
+                                                            // critters
+            for (int j = move; j < population.size(); j++) { // are at the same
+                                                                // position
+                Critter a = population.get(i);
+                Critter b = population.get(j);
+ 
+                if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters
+                                                                        // have
+                                                                        // encountered
+                    // encounter
+ 
+                    boolean a_fight = a.fight(b.toString());
+                    boolean b_fight = b.fight(a.toString());
+                    int a_power = 0, b_power = 0;
+                    if ((a.x_coord == b.x_coord && a.y_coord == b.y_coord) && (a.energy > 0 && b.energy > 0)) {
+                        // fight!
+                        if (a_fight)
+                            a_power = getRandomInt(a.energy);
+                        if (b_fight)
+                            b_power = getRandomInt(b.energy);
+                        if (a_power > b_power)
+                            a.energy += (b.energy / 2);
+                        if (b_power <= a_power)
+                            b.energy += (a.energy / 2); 
+                    }                  
+                   
+                }
+            }
+            move++;        
+        }      
 		
 	}
 	
