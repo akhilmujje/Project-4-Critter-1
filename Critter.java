@@ -1,11 +1,11 @@
-/* CRITTERS <MyClass.java>
- * EE422C Project 4 submission by October 18, 2016
- * <Devisriram Akhil Mujje>
- * <16470>
- * <Sriram Ravula>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
+/* CRITTERS Critter.java
+ * EE422C Project 4 submission by 
+ * Devisriram Akhil Mujje
+ * 16470
+ * Sriram Ravula
+ * sr39533
+ * 16475
+ * Slip days used: 0
  * Fall 2016
  */
 
@@ -24,7 +24,7 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
 	// added fields
-	private static int[][] position = new int[Params.world_height][Params.world_width];
+	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
 
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
@@ -62,114 +62,114 @@ public abstract class Critter {
 	protected final void walk(int direction) {
 		switch (direction) {
 
-		case 0: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-
-			break;
-		}
-		case 1: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 2: {
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 3: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 4: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			break;
-		}
-		case 5: {
-			x_coord -= 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 6: {
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 7: {
-			x_coord += 1;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 1;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
+			case 0: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+	
+				break;
+			}
+			case 1: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 2: {
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 3: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 4: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				break;
+			}
+			case 5: {
+				x_coord -= 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 6: {
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 7: {
+				x_coord += 1;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 1;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
@@ -177,115 +177,115 @@ public abstract class Critter {
 	protected final void run(int direction) {
 		switch (direction) {
 
-		case 0: {
-			x_coord += 2;
-
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-
-			break;
-		}
-		case 1: {
-			x_coord += 2;
-
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 2: {
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;			
-			
-			break;
-		}
-		case 3: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord -= 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			
-			break;
-		}
-		case 4: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			break;
-		}
-		case 5: {
-			x_coord -= 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 6: {
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
-		case 7: {
-			x_coord += 2;
-			
-			if(x_coord < 0)
-				x_coord += Params.world_width;
-			else
-				x_coord = x_coord % Params.world_width;
-			
-			y_coord += 2;
-			
-			if(y_coord < 0)
-				y_coord += Params.world_height;
-			else
-				y_coord = y_coord % Params.world_height;
-			
-			break;
-		}
+			case 0: {
+				x_coord += 2;
+	
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+	
+				break;
+			}
+			case 1: {
+				x_coord += 2;
+	
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 2: {
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;			
+				
+				break;
+			}
+			case 3: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord -= 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				
+				break;
+			}
+			case 4: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				break;
+			}
+			case 5: {
+				x_coord -= 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 6: {
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
+			case 7: {
+				x_coord += 2;
+				
+				if(x_coord < 0)
+					x_coord += Params.world_width;
+				else
+					x_coord = x_coord % Params.world_width;
+				
+				y_coord += 2;
+				
+				if(y_coord < 0)
+					y_coord += Params.world_height;
+				else
+					y_coord = y_coord % Params.world_height;
+				
+				break;
+			}
 		}
 		this.energy -= Params.run_energy_cost;
 	}
@@ -310,27 +310,22 @@ public abstract class Critter {
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
-			Class cl = Class.forName(critter_class_name);
+			Class<?> cl = Class.forName(myPackage + "." + critter_class_name); //create a class object with value equal to the given critter class
 
-			switch (critter_class_name) {
-
-			case "Craig": {
-				Critter c = (Craig) cl.newInstance();
-				c.energy = Params.start_energy;
-				population.add(c);
-				break;
-			}
-			case "Algae":
-				Critter a = (Algae) cl.newInstance();
-				population.add(a);
-				break;
-			}
-
-		} catch (ClassNotFoundException c) {
+			Critter c = (Critter) cl.newInstance();
+			c.energy = Params.start_energy; 
+			c.x_coord = getRandomInt(Params.world_width); //set the x and y coordinates to be random
+			c.y_coord = getRandomInt(Params.world_height);
+			population.add(c);
+		} 
+		
+		catch (ClassNotFoundException c) { //catch any exceptions that may be thrown and propagate them as InvalidCritterException
 			throw new InvalidCritterException(critter_class_name);
-		} catch (InstantiationException i) {
+		} 
+		catch (InstantiationException i) {
 			throw new InvalidCritterException(critter_class_name);
-		} catch (IllegalAccessException il) {
+		} 
+		catch (IllegalAccessException il) {
 			throw new InvalidCritterException(critter_class_name);
 		}
 
@@ -346,6 +341,19 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
+		
+		try{
+			Class<?> critter = Class.forName(myPackage + "." + critter_class_name); //create class object with given critter class
+			
+			int size = population.size();
+			for(int i = 0; i < size; i++){
+				if(critter.isInstance(population.get(i))) //check if the current critter is an instance of the specified critter 
+						result.add(population.get(i));
+			}
+		}
+		catch (ClassNotFoundException c) { //if the string input is not a valid critter type, then throw an exception
+			throw new InvalidCritterException(critter_class_name);
+		}
 
 		return result;
 	}
@@ -430,42 +438,110 @@ public abstract class Critter {
 			return babies;
 		}
 	}
+	
+	private static void removeDead(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and remove all the dead critters
+			if(population.get(i).energy < 1)
+				population.remove(i);
+		}
+	}
 
 	/**
 	 * Clear the world of all critters, dead and alive
 	 */
 	public static void clearWorld() {
+		population.clear();
+	}
+	
+	private static void doEncounters(){
+		
+	}
+	
+	private static void updateRestEnergy(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and decrease all Critters' energy by rest energy
+			population.get(i).energy -= Params.rest_energy_cost;
+		}
+	}
+	
+	private static void generateAlgae(){
+		for (int i = 0; i < Params.refresh_algae_count; i++){
+			Critter a = new Algae(); //create a new algae with start_energy and place it in a random location
+			a.energy = Params.start_energy;
+			a.x_coord = getRandomInt(Params.world_width); //set the x and y coordinates to be random
+			a.y_coord = getRandomInt(Params.world_height);
+			population.add(a);
+		}
+	}
+	
+	private static void addBabies(){
+		population.addAll(babies); 
+		babies.clear();
+	}
+	
+	private static void doAllTimeSteps(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and call each critter's doTimeStep
+			population.get(i).doTimeStep();
+		}
+	}
+	
+	private static void updatePosition(){
+		int size = population.size();
+		position = new Critter[Params.world_height][Params.world_width];
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and place the critters in the correct position in the position matrix
+			int x = population.get(i).x_coord;
+			int y = population.get(i).y_coord;
+			position[x][y] = population.get(i);
+		}
 	}
 
 	public static void worldTimeStep() {
+		
+		doAllTimeSteps();
+		
+		doEncounters();
+		
+		updateRestEnergy();
+		
+		generateAlgae();
+		
+		addBabies();
+		
+		removeDead();
+		
+		updatePosition();
 	}
 
 	public static void displayWorld() {
-
-		// printing top border
-		System.out.print("+");
-		for (int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.print("+");
-		System.out.println();
-
-		// printing each row of world grid
-		for (int i = 0; i < Params.world_height; i++) {
-			System.out.print("|");
-			for (int j = 0; j < population.size(); j++) {
-				System.out.print(population.get(j).toString());
-			}
-			System.out.print("|");
-			System.out.println();
-
-		}
-		// printing bottom border
-		System.out.print("+");
-		for (int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.println("+");
-
-	}
+		 
+        // printing top border
+        System.out.print("+");
+        for (int i = 0; i < Params.world_width; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+ 
+        // printing each row of world grid
+        for (int i = 0; i < Params.world_height; i++) {
+            System.out.print("|");
+            for (int j = 0; j < Params.world_width; j++) {
+                if (position[i][j] != null)
+                    System.out.print(position[i][j]);
+                else
+                    System.out.print(" ");
+            }
+ 
+            System.out.println("|");
+ 
+        }
+        // printing bottom border
+        System.out.print("+");
+        for (int i = 0; i < Params.world_width; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+ 
+    }
 }
