@@ -471,19 +471,13 @@ public abstract class Critter {
 		 // Encounters between critters -STAGE 2 (in progress--INCOMPLETE)
 	            
         int move = 1;
-        for (int i = 0; i < population.size() - 1; i++) { // traverse through
-                                                            // population,
-                                                            // checking if two
-                                                            // critters
-            for (int j = move; j < population.size(); j++) { // are at the same
-                                                                // position
+        for (int i = 0; i < population.size() - 1; i++) { // traverse through population, checking if two critters are at the same position
+            for (int j = move; j < population.size(); j++) {
+                                                    
                 Critter a = population.get(i);
                 Critter b = population.get(j);
  
-                if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters
-                                                                        // have
-                                                                        // encountered
-                    // encounter
+                if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters have encounter
  
                     boolean a_fight = a.fight(b.toString());
                     boolean b_fight = b.fight(a.toString());
@@ -545,6 +539,13 @@ public abstract class Critter {
 			position[x][y] = population.get(i);
 		}
 	}
+	
+	private static void resetHasMoved(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and call each critter's doTimeStep
+			population.get(i).hasMoved = false;
+		}
+	}
 
 	public static void worldTimeStep() {
 		
@@ -561,6 +562,8 @@ public abstract class Critter {
 		removeDead();
 		
 		updatePosition();
+		
+		resetHasMoved();
 	}
 
 	public static void displayWorld() {
