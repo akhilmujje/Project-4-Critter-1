@@ -24,7 +24,7 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 
 	// added fields
-	private static int[][] position = new int[Params.world_height][Params.world_width];
+	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
 
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
@@ -438,6 +438,14 @@ public abstract class Critter {
 			return babies;
 		}
 	}
+	
+	private static void removeDead(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and remove all the dead critters
+			if(population.get(i).energy < 1)
+				population.remove(i);
+		}
+	}
 
 	/**
 	 * Clear the world of all critters, dead and alive
@@ -445,36 +453,95 @@ public abstract class Critter {
 	public static void clearWorld() {
 		population.clear();
 	}
+	
+	private static void doEncounters(){
+		
+	}
+	
+	private static void updateRestEnergy(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and decrease all Critters' energy by rest energy
+			population.get(i).energy -= Params.rest_energy_cost;
+		}
+	}
+	
+	private static void generateAlgae(){
+		for (int i = 0; i < Params.refresh_algae_count; i++){
+			Critter a = new Algae(); //create a new algae with start_energy and place it in a random location
+			a.energy = Params.start_energy;
+			a.x_coord = getRandomInt(Params.world_width); //set the x and y coordinates to be random
+			a.y_coord = getRandomInt(Params.world_height);
+			population.add(a);
+		}
+	}
+	
+	private static void addBabies(){
+		population.addAll(babies); 
+		babies.clear();
+	}
+	
+	private static void doAllTimeSteps(){
+		int size = population.size();
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and call each critter's doTimeStep
+			population.get(i).doTimeStep();
+		}
+	}
+	
+	private static void updatePosition(){
+		int size = population.size();
+		position = new Critter[Params.world_height][Params.world_width];
+		for (int i = 0; i < size; i++){ //iterate through the Critter collection and place the critters in the correct position in the position matrix
+			int x = population.get(i).x_coord;
+			int y = population.get(i).y_coord;
+			position[x][y] = population.get(i);
+		}
+	}
 
 	public static void worldTimeStep() {
+		
+		doAllTimeSteps();
+		
+		doEncounters();
+		
+		updateRestEnergy();
+		
+		generateAlgae();
+		
+		addBabies();
+		
+		removeDead();
+		
+		updatePosition();
 	}
 
 	public static void displayWorld() {
-
-		// printing top border
-		System.out.print("+");
-		for (int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.print("+");
-		System.out.println();
-
-		// printing each row of world grid
-		for (int i = 0; i < Params.world_height; i++) {
-			System.out.print("|");
-			for (int j = 0; j < population.size(); j++) {
-				System.out.print(population.get(j).toString());
-			}
-			System.out.print("|");
-			System.out.println();
-
-		}
-		// printing bottom border
-		System.out.print("+");
-		for (int i = 0; i < Params.world_width; i++) {
-			System.out.print("-");
-		}
-		System.out.println("+");
-
-	}
+		 
+        // printing top border
+        System.out.print("+");
+        for (int i = 0; i < Params.world_width; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+ 
+        // printing each row of world grid
+        for (int i = 0; i < Params.world_height; i++) {
+            System.out.print("|");
+            for (int j = 0; j < Params.world_width; j++) {
+                if (position[i][j] != null)
+                    System.out.print(position[i][j]);
+                else
+                    System.out.print(" ");
+            }
+ 
+            System.out.println("|");
+ 
+        }
+        // printing bottom border
+        System.out.print("+");
+        for (int i = 0; i < Params.world_width; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+ 
+    }
 }

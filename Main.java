@@ -77,7 +77,7 @@ public class Main {
 		/* Do not alter the code above for your submission. */
 		/* Write your code below. */
 		
-		for(int i = 0; i < 100; i++){ //For stage 1, create 100 algae to start
+		for(int i = 0; i < 20; i++){ //For stage 1, create 100 algae to start
 			try{
 				Critter.makeCritter("Algae");
 			}
@@ -86,7 +86,7 @@ public class Main {
 			}
 		}
 		
-		for(int i = 0; i < 25; i++){ //For stage 1, create 25 Craigs to start
+		for(int i = 0; i < 10; i++){ //For stage 1, create 25 Craigs to start
 			try{
 				Critter.makeCritter("Craig");
 			}
@@ -98,7 +98,7 @@ public class Main {
 		boolean end = false; //the end flag for the program
 		
 		while (!end) {
-			System.out.println("critters> ");
+			System.out.print("critters> ");
 			String cmd = kb.nextLine();
 			String[] parsed = (cmd.trim()).split("\\s+"); //trim the whitespace from the front and back of the user input, then split it into Strings separated by whitespace
 			
