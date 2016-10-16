@@ -297,16 +297,127 @@ public abstract class Critter {
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
-	       if(energy < Params.min_reproduce_energy) //parent requires min reproduce energy to reproduce
-	            return;
-	        offspring.energy = energy / 2; //child receives 1/2 of parent's energy
-	        energy =  ((int)(0.5 * energy + 0.5)); //reduce parent energy by 1/2 (round up)
-	       
-	        //place child one position directly below parent
-	        offspring.x_coord = this.x_coord;
-	        int child_loc = this.y_coord + 1;
-	        child_loc %= Params.world_height;
-	        offspring.y_coord = child_loc;
+	    if (energy < Params.min_reproduce_energy) // parent requires min reproduce energy to reproduce
+			return;
+		offspring.energy = energy / 2; // child receives 1/2 of parent's energy (round down)
+		energy = ((int) (0.5 * energy + 0.5)); // reduce parent energy by 1/2 (round up)
+
+		// place child based on provided direction
+		switch (direction) {
+		case 0: {
+
+			int child_loc_x = this.x_coord + 1;
+
+			child_loc_x %= Params.world_width;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = this.y_coord;
+
+			break;
+
+		}
+		case 1: {
+
+			int child_loc_x = this.x_coord + 1;
+			int child_loc_y = this.y_coord - 1;
+
+			child_loc_x %= Params.world_width;
+
+			if (child_loc_y < 0)
+				child_loc_y += Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+
+		}
+		case 2: {
+			int child_loc_x = this.x_coord;
+			int child_loc_y = this.y_coord - 1;
+
+			if (child_loc_y < 0)
+				child_loc_y += Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+
+		}
+		case 3: {
+			int child_loc_x = this.x_coord - 1;
+			int child_loc_y = this.y_coord - 1;
+
+			if (child_loc_x < 0)
+				child_loc_x += Params.world_width;
+
+			if (child_loc_y < 0)
+				child_loc_y += Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+
+		}
+		case 4: {
+			int child_loc_x = this.x_coord - 1;
+
+			if (child_loc_x < 0)
+				child_loc_x += Params.world_width;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = this.y_coord;
+
+			break;
+
+		}
+		case 5: {
+
+			int child_loc_x = this.x_coord - 1;
+			int child_loc_y = this.y_coord + 1;
+
+			if (child_loc_x < 0)
+				child_loc_x += Params.world_width;
+
+			child_loc_y %= Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+
+		}
+		case 6: {
+
+			int child_loc_x = this.x_coord;
+			int child_loc_y = this.y_coord + 1;
+
+			child_loc_y %= Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+
+		}
+		case 7: {
+
+			int child_loc_x = this.x_coord + 1;
+			int child_loc_y = this.y_coord + 1;
+
+			child_loc_x %= Params.world_width;
+			child_loc_y %= Params.world_height;
+
+			offspring.x_coord = child_loc_x;
+			offspring.y_coord = child_loc_y;
+
+			break;
+		}
+
+		}
+
 	}
 
 	public abstract void doTimeStep();
@@ -471,37 +582,47 @@ public abstract class Critter {
 	}
 	
 	private static void doEncounters(){
+	
+		// traverse through population, checking if two critters are at the same position		
 		
-		 // Encounters between critters -STAGE 2 (in progress--INCOMPLETE)
-	            
-        int move = 1;
-        for (int i = 0; i < population.size() - 1; i++) { // traverse through population, checking if two critters are at the same position
-            for (int j = move; j < population.size(); j++) {
-                                                    
-                Critter a = population.get(i);
-                Critter b = population.get(j);
- 
-                if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters have encounter
- 
-                    boolean a_fight = a.fight(b.toString());
-                    boolean b_fight = b.fight(a.toString());
-                    int a_power = 0, b_power = 0;
-                    if ((a.x_coord == b.x_coord && a.y_coord == b.y_coord) && (a.energy > 0 && b.energy > 0)) {
-                        // fight!
-                        if (a_fight)
-                            a_power = getRandomInt(a.energy);
-                        if (b_fight)
-                            b_power = getRandomInt(b.energy);
-                        if (a_power > b_power)
-                            a.energy += (b.energy / 2);
-                        if (b_power <= a_power)
-                            b.energy += (a.energy / 2); 
-                    }                  
-                   
-                }
-            }
-            move++;        
-        }      
+		for (int i = 0; i < population.size() - 1; i++) { 
+			if (population.get(i).energy <= 0)
+				break; //no need for dead critters
+			for (int j = i + 1; j < population.size(); j++) {
+				if (population.get(i).energy <= 0) //no need for dead critters
+					break;
+				if (population.get(j).energy <= 0)// no need for dead critters
+					continue;
+				
+				Critter a = population.get(i);
+				Critter b = population.get(j);
+
+				if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters have encountered																		
+
+					boolean a_fight = a.fight(b.toString());
+					boolean b_fight = b.fight(a.toString());
+					int a_power = 0, b_power = 0;
+					
+					if ((a.x_coord == b.x_coord && a.y_coord == b.y_coord) && (a.energy > 0 && b.energy > 0)) {
+						// fight!
+						if (a_fight)
+							a_power = getRandomInt(a.energy + 1); //roll a number btw 0 and A.energy (all inclusive)
+						if (b_fight)
+							b_power = getRandomInt(b.energy + 1); //roll a number btw 0 and B.energy (all inclusive)
+						if (a_power > b_power){
+							a.energy += (b.energy / 2); //Critter a wins fight, so it receives half of the loser's energy
+							b.energy = 0;
+						}
+						if (b_power >= a_power){
+							b.energy += (a.energy / 2); //Critter b wins fight, so it receives half of the loser's energy
+							a.energy = 0; //note: if two critters roll same number, b wins by default (arbitrary decision)
+						}
+					}
+
+				}
+			}
+
+		}
 		
 	}
 	
