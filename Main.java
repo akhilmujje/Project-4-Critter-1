@@ -1,11 +1,11 @@
-/* CRITTERS <MyClass.java>
- * EE422C Project 4 submission by October 18, 2016
- * <Devisriram Akhil Mujje>
- * <16470>
- * <Sriram Ravula>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
- * Slip days used: <0>
+/* CRITTERS Main.java
+ * EE422C Project 4 submission by 
+ * Devisriram Akhil Mujje
+ * 16470
+ * Sriram Ravula
+ * sr39533
+ * 16475
+ * Slip days used: 0
  * Fall 2016
  */
 
@@ -76,26 +76,45 @@ public class Main {
 
 		/* Do not alter the code above for your submission. */
 		/* Write your code below. */
-		boolean end = false;
+		
+		for(int i = 0; i < 20; i++){ //For stage 1, create 100 algae to start
+			try{
+				Critter.makeCritter("Algae");
+			}
+			catch (InvalidCritterException e){ //dummy catch
+				System.out.println("Try Again");
+			}
+		}
+		
+		for(int i = 0; i < 10; i++){ //For stage 1, create 25 Craigs to start
+			try{
+				Critter.makeCritter("Craig");
+			}
+			catch (InvalidCritterException e){ //dummy catch
+				System.out.println("Try Again");
+			}
+		}
+		
+		boolean end = false; //the end flag for the program
+		
 		while (!end) {
-			System.out.println("critters> ");
+			System.out.print("critters> ");
 			String cmd = kb.nextLine();
-			if(cmd.equals("quit")){
+			String[] parsed = (cmd.trim()).split("\\s+"); //trim the whitespace from the front and back of the user input, then split it into Strings separated by whitespace
+			
+			if(parsed[0].equals("quit")){ //if the user enters quit, then set the end flag
 				end = true;
 			}
-			if(cmd.equals("show")){
+			
+			else if(parsed[0].equals("show")){ //if the user enters show, then display the grid
 				Critter.displayWorld();				
 			}
-			if(cmd.substring(0,4).equals("step")){
-				int cnt = 0;
-				if(cmd.length() > 4)
-					cnt = Integer.parseInt(cmd.substring(4).trim());
-				while(cnt > 0){
-					//Critter.worldTimeStep();
-					cnt--;
-				}
-			}
-				
+			
+			else if(parsed[0].equals("step")){ //if the user enters step, then step once
+				int cnt = 1; //TODO take user input for stage 2
+				for (int i = 0; i < cnt; i++)
+					Critter.worldTimeStep();
+			}		
 		}
 
 		/* Write your code above */
