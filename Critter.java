@@ -291,9 +291,9 @@ public abstract class Critter {
 					break;
 				}
 			}
-			this.energy -= Params.run_energy_cost;
+			hasMoved = true;
 		}
-		hasMoved = true;
+		this.energy -= Params.run_energy_cost;
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
