@@ -26,6 +26,7 @@ public abstract class Critter {
 	// added fields
 	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
 	private boolean hasMoved = false;
+	private boolean isFighting = false;
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -60,238 +61,268 @@ public abstract class Critter {
 	private int y_coord;
 
 	protected final void walk(int direction) {
-		if(!hasMoved){
+		if(!hasMoved){ //only move the critter if it hasn't moved before
+			int next_x = x_coord; //variables to temporarily hold the coordinates you wish to move to 
+			int next_y = y_coord;
+			
 			switch (direction) {
 	
 				case 0: {
-					x_coord += 1;
+					next_x += 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 		
 					break;
 				}
 				case 1: {
-					x_coord += 1;
+					next_x += 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord -= 1;
+					next_y -= 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 2: {
-					y_coord -= 1;
+					next_y -= 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 3: {
-					x_coord -= 1;
+					next_x -= 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord -= 1;
+					next_y -= 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 4: {
-					x_coord -= 1;
+					next_x -= 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
 					break;
 				}
 				case 5: {
-					x_coord -= 1;
+					next_x -= 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord += 1;
+					next_y += 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 6: {
-					y_coord += 1;
+					next_y += 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 7: {
-					x_coord += 1;
+					next_x += 1;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord += 1;
+					next_y += 1;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 			}
+			
 			hasMoved = true;
+			
+			if(isFighting){ //if the critter is in a fight, then only move if the new location is unoccupied
+				if(canMove(next_x, next_y)){
+					x_coord = next_x;
+					y_coord = next_y;
+				}
+			}
+			else{ //if the critter is not in a fight, then it can move freely into occupied locations
+				x_coord = next_x;
+				y_coord = next_y;
+			}
+			
 		}
 		this.energy -= Params.walk_energy_cost;
 	}
 
 	protected final void run(int direction) {
-		if(!hasMoved){
+		if(!hasMoved){ //only move the critter if it hasn't moved before
+			int next_x = x_coord; //variables to temporarily hold the coordinates you wish to move to 
+			int next_y = y_coord;
+			
 			switch (direction) {
 	
 				case 0: {
-					x_coord += 2;
+					next_x += 2;
 		
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 		
 					break;
 				}
 				case 1: {
-					x_coord += 2;
+					next_x += 2;
 		
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord -= 2;
+					next_y -= 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 2: {
-					y_coord -= 2;
+					next_y -= 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;			
+						next_y = next_y % Params.world_height;			
 					
 					break;
 				}
 				case 3: {
-					x_coord -= 2;
+					next_x -= 2;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord -= 2;
+					next_y -= 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					
 					break;
 				}
 				case 4: {
-					x_coord -= 2;
+					next_x -= 2;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
 					break;
 				}
 				case 5: {
-					x_coord -= 2;
+					next_x -= 2;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord += 2;
+					next_y += 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 6: {
-					y_coord += 2;
+					next_y += 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 				case 7: {
-					x_coord += 2;
+					next_x += 2;
 					
-					if(x_coord < 0)
-						x_coord += Params.world_width;
+					if(next_x < 0)
+						next_x += Params.world_width;
 					else
-						x_coord = x_coord % Params.world_width;
+						next_x = next_x % Params.world_width;
 					
-					y_coord += 2;
+					next_y += 2;
 					
-					if(y_coord < 0)
-						y_coord += Params.world_height;
+					if(next_y < 0)
+						next_y += Params.world_height;
 					else
-						y_coord = y_coord % Params.world_height;
+						next_y = next_y % Params.world_height;
 					
 					break;
 				}
 			}
 			hasMoved = true;
+			
+			if(isFighting){ //if the critter is in a fight, then only move if the new location is unoccupied
+				if(canMove(next_x, next_y)){
+					x_coord = next_x;
+					y_coord = next_y;
+				}
+			}
+			else{ //if the critter is not in a fight, then it can move freely into occupied locations
+				x_coord = next_x;
+				y_coord = next_y;
+			}
 		}
 		this.energy -= Params.run_energy_cost;
 	}
