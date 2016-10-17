@@ -12,7 +12,13 @@
 package assignment4; // cannot be in default package
 
 import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /*
  * Usage: java <pkgname>.Main <input file> test
