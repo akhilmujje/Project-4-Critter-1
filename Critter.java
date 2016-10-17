@@ -613,26 +613,32 @@ public abstract class Critter {
 	}
 	
 	private static void doEncounters(){
-	
 		// traverse through population, checking if two critters are at the same position		
 		
 		for (int i = 0; i < population.size() - 1; i++) { 
 			if (population.get(i).energy <= 0)
-				break; //no need for dead critters
-			for (int j = i + 1; j < population.size(); j++) {
-				if (population.get(i).energy <= 0) //no need for dead critters
-					break;
+				continue; //no need for dead critters
+			for (int j = i + 1; j < population.size(); j++) {				
 				if (population.get(j).energy <= 0)// no need for dead critters
 					continue;
 				
 				Critter a = population.get(i);
 				Critter b = population.get(j);
 
-				if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters have encountered																		
-
-					boolean a_fight = a.fight(b.toString());
-					boolean b_fight = b.fight(a.toString());
-					int a_power = 0, b_power = 0;
+				if (a.x_coord == b.x_coord && a.y_coord == b.y_coord) { // critters have encountered	
+					
+					a.isFighting = true;
+					b.isFighting = true;
+					
+					boolean a_fight = a.fight(b.toString());	//check if critter wants to fight				
+					boolean b_fight = b.fight(a.toString());repr
+					
+					a.isFighting = false;
+					b.isFighting = false;
+					
+					
+					int a_power = 0;
+					int b_power = 0;
 					
 					if ((a.x_coord == b.x_coord && a.y_coord == b.y_coord) && (a.energy > 0 && b.energy > 0)) {
 						// fight!
@@ -644,7 +650,7 @@ public abstract class Critter {
 							a.energy += (b.energy / 2); //Critter a wins fight, so it receives half of the loser's energy
 							b.energy = 0;
 						}
-						if (b_power >= a_power){
+						else{
 							b.energy += (a.energy / 2); //Critter b wins fight, so it receives half of the loser's energy
 							a.energy = 0; //note: if two critters roll same number, b wins by default (arbitrary decision)
 						}
@@ -654,7 +660,7 @@ public abstract class Critter {
 			}
 
 		}
-		
+
 	}
 	
 	private static void updateRestEnergy(){
