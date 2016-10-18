@@ -331,7 +331,7 @@ public abstract class Critter {
 	    if (energy < Params.min_reproduce_energy) // parent requires min reproduce energy to reproduce
 			return;
 		offspring.energy = energy / 2; // child receives 1/2 of parent's energy (round down)
-		energy = ((int) (0.5 * energy + 0.5)); // reduce parent energy by 1/2 (round up)
+		energy = ((int) (0.5 * energy + 0.8)); // reduce parent energy by 1/2 (round up)
 
 		// place child based on provided direction
 		switch (direction) {
@@ -448,6 +448,7 @@ public abstract class Critter {
 		}
 
 		}
+		babies.add(offspring);
 
 	}
 
