@@ -6,6 +6,7 @@
  * sr39533
  * 16475
  * Slip days used: 0
+ * Git URL: https://github.com/akhilmujje/Project-4-Critter-1.git
  * Fall 2016
  */
 
@@ -632,7 +633,7 @@ public abstract class Critter {
 					b.isFighting = true;
 					
 					boolean a_fight = a.fight(b.toString());	//check if critter wants to fight				
-					boolean b_fight = b.fight(a.toString());repr
+					boolean b_fight = b.fight(a.toString());
 					
 					a.isFighting = false;
 					b.isFighting = false;
