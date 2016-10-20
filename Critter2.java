@@ -13,22 +13,47 @@
 
 package assignment4;
 
+/**
+ * Implements a new Critter that builds on the abstract Critter class. 
+ * Each time step, this Critter stays completely still. During an 
+ * encounter, this Critter will attempt to fight, but will try to run
+ * away from the encounter in a set direction first. 
+ */
 public class Critter2 extends Critter {
+	
+	private int direction;
 
 	public Critter2() {
-		// TODO Auto-generated constructor stub
+		direction = Critter.getRandomInt(8);
 	}
 
+	/** 
+	 * During each time step, stays still.
+	 */
 	@Override
 	public void doTimeStep() {
-		// TODO Auto-generated method stub
+		return;
 
 	}
 
+	/** 
+	 * During an encounter, will want to fight, 
+	 * but will first try to run away in a set direction.
+	 * @return true
+	 */
 	@Override
 	public boolean fight(String oponent) {
-		// TODO Auto-generated method stub
-		return false;
+		run(direction);
+		return true;
+	}
+	
+	/** 
+	 * Returns the String representation of Critter2
+	 * @return 2
+	 */
+	@Override
+	public String toString(){
+		return "2";
 	}
 
 }

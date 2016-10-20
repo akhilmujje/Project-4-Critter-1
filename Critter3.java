@@ -12,22 +12,47 @@
 
 package assignment4;
 
+/**
+ * Implements a new Critter that builds on the abstract Critter class. 
+ * Each time step, this Critter runs in a set direction. During an 
+ * encounter, this Critter will not want to fight and will reproduce, but 
+ * will not flee from the encounter.
+ */
 public class Critter3 extends Critter {
 
+	int direction;
+	
 	public Critter3() {
-		// TODO Auto-generated constructor stub
+		direction = Critter.getRandomInt(8);
 	}
 
+	/** 
+	 * During each time step, runs in a set direction.
+	 */
 	@Override
 	public void doTimeStep() {
-		// TODO Auto-generated method stub
+		run(direction);
 
 	}
 
+	/** 
+	 * During an encounter, will not want to fight.
+	 * This creature reproduces and will not flee from the encounter.
+	 * @return false
+	 */
 	@Override
 	public boolean fight(String oponent) {
-		// TODO Auto-generated method stub
+		Critter3 c = new Critter3();
+		reproduce(c, Critter.getRandomInt(8));
 		return false;
 	}
 
+	/** 
+	 * Returns the String representation of Critter3
+	 * @return 3
+	 */
+	@Override
+	public String toString(){
+		return "3";
+	}
 }
