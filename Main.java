@@ -14,8 +14,6 @@ package assignment4; // cannot be in default package
 
 import java.util.Scanner;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -87,7 +85,7 @@ public class Main {
 		boolean end = false; //the end flag for the program
 		
 		while (!end) {
-			System.out.print("critters> ");
+			System.out.print("critters>");
 			String cmd = kb.nextLine();
 			String[] parsed = (cmd.trim()).split("\\s+"); //trim the whitespace from the front and back of the user input, then split it into Strings separated by whitespace
 			
@@ -279,7 +277,7 @@ public class Main {
 			}
 			
 			else{ // if the user did not enter a valid command, print an error
-				System.out.print("Invalid Command:");
+				System.out.print("invalid command:");
 				int length = parsed.length;
 				for(int i = 0; i < length; i++)
 					System.out.print(" " + parsed[i]);
