@@ -14,11 +14,9 @@ package assignment4;
 
 import java.util.List;
 
-/* see the PDF for descriptions of the methods and fields in this class
- * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
- * no new public, protected or default-package code or data can be added to Critter
+/**
+ * Defines an abstract Critter that can move, fight, and eat in a grid world
  */
-
 public abstract class Critter {
 	private static String myPackage;
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
@@ -28,6 +26,7 @@ public abstract class Critter {
 	private static Critter[][] position = new Critter[Params.world_height][Params.world_width];
 	private boolean hasMoved = false;
 	private boolean isFighting = false;
+	
 	// Gets the package name. This assumes that Critter and its subclasses are
 	// all in the same package.
 	static {
@@ -60,7 +59,26 @@ public abstract class Critter {
 
 	private int x_coord;
 	private int y_coord;
+	
+    /**
+     * Checks if a certain location on the grid is occupied by a Critter
+     * @param x the x coordinate to check
+     * @param y the y coordinate to check
+     * @return true if the position is occupied, false otherwise
+     */
+	private boolean canMove(int x, int y){
+		for(Critter c: population){
+			if(c.x_coord == x && c.y_coord == y) //if there is a critter in the spot we are trying to move to, return false
+				return false;
+		}
+		return true;
+	}
 
+    /**
+     * Moves the Critter one step in the specified direction.
+     * If the Critter is in a fight, this method checks if the position it wants to move to is occupied.
+     * @param direction the direction to walk in
+     */
 	protected final void walk(int direction) {
 		if(!hasMoved){ //only move the critter if it hasn't moved before
 			int next_x = x_coord; //variables to temporarily hold the coordinates you wish to move to 
@@ -195,6 +213,11 @@ public abstract class Critter {
 		this.energy -= Params.walk_energy_cost;
 	}
 
+    /**
+     * Moves the Critter two steps in the specified direction.
+     * If the Critter is in a fight, this method checks if the position it wants to move to is occupied.
+     * @param direction the direction to walk in
+     */
 	protected final void run(int direction) {
 		if(!hasMoved){ //only move the critter if it hasn't moved before
 			int next_x = x_coord; //variables to temporarily hold the coordinates you wish to move to 
@@ -328,129 +351,134 @@ public abstract class Critter {
 		this.energy -= Params.run_energy_cost;
 	}
 
+    /**
+     * Initializes a Critter with 1/2 the energy of the calling Critter
+     * and a specified direction.
+     * @param offspring the offspring to initialize
+     * @param direction the specified direction to place the offspring relative to the calling Critter (parent) 
+     */
 	protected final void reproduce(Critter offspring, int direction) {
 	    if (energy < Params.min_reproduce_energy) // parent requires min reproduce energy to reproduce
-			return;
-		offspring.energy = energy / 2; // child receives 1/2 of parent's energy (round down)
-		energy = ((int) (0.5 * energy + 0.8)); // reduce parent energy by 1/2 (round up)
+				return;
+			offspring.energy = energy / 2; // child receives 1/2 of parent's energy (round down)
+			energy = ((int) (0.5 * energy + 0.8)); // reduce parent energy by 1/2 (round up)
 
-		// place child based on provided direction
+			// place child based on provided direction
 		switch (direction) {
-		case 0: {
+			case 0: {
 
-			int child_loc_x = this.x_coord + 1;
+				int child_loc_x = this.x_coord + 1;
 
-			child_loc_x %= Params.world_width;
+				child_loc_x %= Params.world_width;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = this.y_coord;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = this.y_coord;
 
-			break;
+				break;
 
-		}
-		case 1: {
+			}
+			case 1: {
 
-			int child_loc_x = this.x_coord + 1;
-			int child_loc_y = this.y_coord - 1;
+				int child_loc_x = this.x_coord + 1;
+				int child_loc_y = this.y_coord - 1;
 
-			child_loc_x %= Params.world_width;
+				child_loc_x %= Params.world_width;
 
-			if (child_loc_y < 0)
-				child_loc_y += Params.world_height;
+				if (child_loc_y < 0)
+					child_loc_y += Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
+				break;
 
-		}
-		case 2: {
-			int child_loc_x = this.x_coord;
-			int child_loc_y = this.y_coord - 1;
+			}
+			case 2: {
+				int child_loc_x = this.x_coord;
+				int child_loc_y = this.y_coord - 1;
 
-			if (child_loc_y < 0)
-				child_loc_y += Params.world_height;
+				if (child_loc_y < 0)
+					child_loc_y += Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
+				break;
 
-		}
-		case 3: {
-			int child_loc_x = this.x_coord - 1;
-			int child_loc_y = this.y_coord - 1;
+			}
+			case 3: {
+				int child_loc_x = this.x_coord - 1;
+				int child_loc_y = this.y_coord - 1;
 
-			if (child_loc_x < 0)
-				child_loc_x += Params.world_width;
+				if (child_loc_x < 0)
+					child_loc_x += Params.world_width;
 
-			if (child_loc_y < 0)
-				child_loc_y += Params.world_height;
+				if (child_loc_y < 0)
+					child_loc_y += Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
+				break;
 
-		}
-		case 4: {
-			int child_loc_x = this.x_coord - 1;
+			}
+			case 4: {
+				int child_loc_x = this.x_coord - 1;
 
-			if (child_loc_x < 0)
-				child_loc_x += Params.world_width;
+				if (child_loc_x < 0)
+					child_loc_x += Params.world_width;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = this.y_coord;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = this.y_coord;
 
-			break;
+				break;
 
-		}
-		case 5: {
+			}
+			case 5: {
 
-			int child_loc_x = this.x_coord - 1;
-			int child_loc_y = this.y_coord + 1;
+				int child_loc_x = this.x_coord - 1;
+				int child_loc_y = this.y_coord + 1;
 
-			if (child_loc_x < 0)
-				child_loc_x += Params.world_width;
+				if (child_loc_x < 0)
+					child_loc_x += Params.world_width;
 
-			child_loc_y %= Params.world_height;
+				child_loc_y %= Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
+				break;
 
-		}
-		case 6: {
+			}
+			case 6: {
 
-			int child_loc_x = this.x_coord;
-			int child_loc_y = this.y_coord + 1;
+				int child_loc_x = this.x_coord;
+				int child_loc_y = this.y_coord + 1;
 
-			child_loc_y %= Params.world_height;
+				child_loc_y %= Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
+				break;
 
-		}
-		case 7: {
+			}
+			case 7: {
 
-			int child_loc_x = this.x_coord + 1;
-			int child_loc_y = this.y_coord + 1;
+				int child_loc_x = this.x_coord + 1;
+				int child_loc_y = this.y_coord + 1;
 
-			child_loc_x %= Params.world_width;
-			child_loc_y %= Params.world_height;
+				child_loc_x %= Params.world_width;
+				child_loc_y %= Params.world_height;
 
-			offspring.x_coord = child_loc_x;
-			offspring.y_coord = child_loc_y;
+				offspring.x_coord = child_loc_x;
+				offspring.y_coord = child_loc_y;
 
-			break;
-		}
+				break;
+			}
 
 		}
 		babies.add(offspring);
-
 	}
 
 	public abstract void doTimeStep();
@@ -465,8 +493,9 @@ public abstract class Critter {
 	 * of upper. For example, if craig is supplied instead of Craig, an error is
 	 * thrown instead of an Exception.)
 	 * 
-	 * @param critter_class_name
-	 * @throws InvalidCritterException
+	 * @param critter_class_name the name of the class of the Critter being made
+	 * @throws InvalidCritterException if the class name is invalid or an object 
+	 * 			of the class cannot be instantiated or the class cannot be accessed
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 		try {
@@ -497,7 +526,7 @@ public abstract class Critter {
 	 * @param critter_class_name
 	 *            What kind of Critter is to be listed. Unqualified class name.
 	 * @return List of Critters.
-	 * @throws InvalidCritterException
+	 * @throws InvalidCritterException if the class name is invalid
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
@@ -599,9 +628,12 @@ public abstract class Critter {
 		}
 	}
 	
+    /**
+     * Removes all the critters that have died this turn from the population.
+     */
 	private static void removeDead(){
 		int size = population.size();
-		for (int i = 0; i < size; i++){ //iterate through the Critter collection and remove all the dead critters
+		for (int i = size-1; i >= 0; i--){ //iterate through the Critter collection and remove all the dead critters
 			if(population.get(i).energy < 1)
 				population.remove(i);
 		}
@@ -612,9 +644,17 @@ public abstract class Critter {
 	 */
 	public static void clearWorld() {
 		population.clear();
+		position = new Critter[Params.world_height][Params.world_width];
+		babies.clear();
 	}
 	
+    /**
+     * Checks to see which Critters in the grid are in the same position.
+     * If there is more than one Critter in a space at a time, the Critters will
+     * fight two at a time until there are zero or one Critters in the position.
+     */
 	private static void doEncounters(){
+		
 		// traverse through population, checking if two critters are at the same position		
 		
 		for (int i = 0; i < population.size() - 1; i++) { 
@@ -660,11 +700,12 @@ public abstract class Critter {
 
 				}
 			}
-
-		}
-
+		}   
 	}
 	
+    /**
+     * Subtracts the rest energy cost from all Critters for one step.
+     */
 	private static void updateRestEnergy(){
 		int size = population.size();
 		for (int i = 0; i < size; i++){ //iterate through the Critter collection and decrease all Critters' energy by rest energy
@@ -672,6 +713,9 @@ public abstract class Critter {
 		}
 	}
 	
+    /**
+     * Generates the required number of Algae in random spots with default start energy.
+     */
 	private static void generateAlgae(){
 		for (int i = 0; i < Params.refresh_algae_count; i++){
 			Critter a = new Algae(); //create a new algae with start_energy and place it in a random location
@@ -682,11 +726,18 @@ public abstract class Critter {
 		}
 	}
 	
+    /**
+     * Moves the baby Critters created by reproduce() this turn into the population.
+     * Clear the baby Critter array. 
+     */
 	private static void addBabies(){
 		population.addAll(babies); 
 		babies.clear();
 	}
 	
+    /**
+     * Performs the doTimeStep() method for every Critter in the population.
+     */
 	private static void doAllTimeSteps(){
 		int size = population.size();
 		for (int i = 0; i < size; i++){ //iterate through the Critter collection and call each critter's doTimeStep
@@ -694,16 +745,23 @@ public abstract class Critter {
 		}
 	}
 	
+    /**
+     * Updates the position grid with the new positions of each Critter from this time step.
+     */
 	private static void updatePosition(){
 		int size = population.size();
 		position = new Critter[Params.world_height][Params.world_width];
 		for (int i = 0; i < size; i++){ //iterate through the Critter collection and place the critters in the correct position in the position matrix
 			int x = population.get(i).x_coord;
 			int y = population.get(i).y_coord;
-			position[x][y] = population.get(i);
+			position[y][x] = population.get(i);
 		}
 	}
 	
+    /**
+     * Resets the movement flag of each Critter for this step. 
+     * Allows Critters to move again. 
+     */
 	private static void resetHasMoved(){
 		int size = population.size();
 		for (int i = 0; i < size; i++){ //iterate through the Critter collection and call each critter's doTimeStep
@@ -711,6 +769,14 @@ public abstract class Critter {
 		}
 	}
 
+    /**
+     * Does one time step in the grid world. In order, this method
+     * does all Critters' time steps, does all Critter encounters, 
+     * updates all Critters' rest energy, generates the required amount
+     * of Algae, removes dead Critters, updates the grid with the Critters'
+     * new positions, adds babies to the population, and resets the Critters'
+     * movement flag. 
+     */
 	public static void worldTimeStep() {
 		
 		doAllTimeSteps();
@@ -719,17 +785,20 @@ public abstract class Critter {
 		
 		updateRestEnergy();
 		
-		generateAlgae();
-		
 		removeDead();
 		
 		updatePosition();
+		
+		generateAlgae();
 		
 		addBabies(); //put after updatePosition so babies don't show up on the grid yet
 		
 		resetHasMoved();
 	}
 
+    /**
+     * Outputs the world to the console with a basic grid outline.
+     */
 	public static void displayWorld() {
 		 
         // printing top border
@@ -740,9 +809,9 @@ public abstract class Critter {
         System.out.println("+");
  
         // printing each row of world grid
-        for (int i = 0; i < Params.world_height; i++) {
+        for (int i = 0; i < position.length; i++) {
             System.out.print("|");
-            for (int j = 0; j < Params.world_width; j++) {
+            for (int j = 0; j < position[0].length; j++) {
                 if (position[i][j] != null)
                     System.out.print(position[i][j]);
                 else
